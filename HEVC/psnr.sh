@@ -1,0 +1,9 @@
+ffmpeg -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_23_inter.mp4 -s 960x480 -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_pre_processed_cropped.yuv -lavfi psnr=stats_file=psnr_logfile_x265_crf_23_inter.txt -f null -
+
+ffmpeg -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_23_intra.mp4 -s 960x480 -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_pre_processed_cropped.yuv -lavfi psnr=stats_file=psnr_logfile_x265_crf_23_intra.txt -f null -
+
+ffmpeg -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_25_inter.mp4 -s 960x480 -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_pre_processed_cropped.yuv -lavfi psnr=stats_file=psnr_logfile_x265_crf_25_inter.txt -f null -
+
+ffmpeg -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_25_intra.mp4 -s 960x480 -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_pre_processed_cropped.yuv -lavfi psnr=stats_file=psnr_logfile_x265_crf_25_intra.txt -f null -
+
+ffmpeg -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x264_crf_25.mp4 -s 960x480 -i ShakeNDry_3840x2160_120fps_420_10bit_YUV_pre_processed_cropped.yuv -lavfi psnr=stats_file=psnr_logfile_x264_crf_25.txt -f null -

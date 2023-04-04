@@ -1,0 +1,258 @@
+[ar7996@cs095 HoneyBee_3840x2160_120fps_420_10bit_YUV_RAW]$ ./pngtohevc.sh
+ffmpeg version 4.2.4-1ubuntu0.1 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 9 (Ubuntu 9.3.0-10ubuntu2)
+  configuration: --prefix=/usr --extra-version=1ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Input #0, image2, from 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_cropped_images/im%05d.png':
+  Duration: 00:00:01.00, start: 0.000000, bitrate: N/A
+    Stream #0:0: Video: png, rgb24(pc), 960x480, 120 fps, 120 tbr, 120 tbn, 120 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> hevc (libx265))
+Press [q] to stop, [?] for help
+x265 [info]: HEVC encoder version 3.2.1+1-b5c86a64bbbe
+x265 [info]: build info [Linux][GCC 9.3.0][64 bit] 8bit+10bit+12bit
+x265 [info]: using cpu capabilities: MMX2 SSE2Fast LZCNT SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+x265 [info]: Main profile, Level-4 (Main tier)
+x265 [info]: Thread pool 0 using 48 threads on numa nodes 0,1
+x265 [info]: Slices                              : 1
+x265 [info]: frame threads / pool features       : 5 / wpp(8 rows)
+x265 [warning]: Source height < 720p; disabling lookahead-slices
+x265 [info]: Coding QT: max CU size, min CU size : 64 / 8
+x265 [info]: Residual QT: max TU size, max depth : 32 / 1 inter / 1 intra
+x265 [info]: ME / range / subpel / merge         : hex / 57 / 2 / 3
+x265 [info]: Keyframe min / max / scenecut / bias: 25 / 250 / 40 / 5.00
+x265 [info]: Lookahead / bframes / badapt        : 20 / 0 / 2
+x265 [info]: b-pyramid / weightp / weightb       : 0 / 1 / 0
+x265 [info]: References / ref-limit  cu / depth  : 3 / off / on
+x265 [info]: AQ: mode / str / qg-size / cu-tree  : 2 / 1.0 / 32 / 1
+x265 [info]: Rate Control / qCompress            : CRF-23.0 / 0.60
+x265 [info]: tools: rd=3 psy-rd=2.00 early-skip rskip signhide tmvp b-intra
+x265 [info]: tools: strong-intra-smoothing deblock sao
+Output #0, mp4, to 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_23_inter.mp4':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0: Video: hevc (libx265) (hev1 / 0x31766568), yuv420p, 960x480, q=2-31, 120 fps, 15360 tbn, 120 tbc
+    Metadata:
+      encoder         : Lavc58.54.100 libx265
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+frame=  120 fps= 34 q=-0.0 Lsize=      68kB time=00:00:00.99 bitrate= 560.6kbits/s speed=0.279x    
+video:64kB audio:0kB subtitle:0kB other streams:0kB global headers:2kB muxing overhead: 5.227056%
+x265 [info]: frame I:      1, Avg QP:24.49  kb/s: 39625.92
+x265 [info]: frame P:    119, Avg QP:31.47  kb/s: 195.90  
+x265 [info]: Weighted P-Frames: Y:0.0% UV:0.0%
+x265 [info]: consecutive B-frames: 100.0% 
+
+encoded 120 frames in 3.23s (37.21 fps), 524.49 kb/s, Avg QP:31.41
+ffmpeg version 4.2.4-1ubuntu0.1 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 9 (Ubuntu 9.3.0-10ubuntu2)
+  configuration: --prefix=/usr --extra-version=1ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Input #0, image2, from 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_cropped_images/im%05d.png':
+  Duration: 00:00:01.00, start: 0.000000, bitrate: N/A
+    Stream #0:0: Video: png, rgb24(pc), 960x480, 120 fps, 120 tbr, 120 tbn, 120 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> hevc (libx265))
+Press [q] to stop, [?] for help
+x265 [info]: HEVC encoder version 3.2.1+1-b5c86a64bbbe
+x265 [info]: build info [Linux][GCC 9.3.0][64 bit] 8bit+10bit+12bit
+x265 [info]: using cpu capabilities: MMX2 SSE2Fast LZCNT SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+x265 [info]: Main Intra profile, Level-4 (Main tier)
+x265 [info]: Thread pool 0 using 48 threads on numa nodes 0,1
+x265 [info]: Slices                              : 1
+x265 [info]: frame threads / pool features       : 5 / wpp(8 rows)
+x265 [warning]: Source height < 720p; disabling lookahead-slices
+x265 [info]: Coding QT: max CU size, min CU size : 64 / 8
+x265 [info]: Residual QT: max TU size, max depth : 32 / 1 inter / 1 intra
+x265 [info]: ME / range / subpel / merge         : hex / 57 / 2 / 3
+x265 [info]: Keyframe min / max / scenecut / bias: 1 / 1 / 0 / 5.00
+x265 [info]: Lookahead / bframes / badapt        : 0 / 0 / 0
+x265 [info]: b-pyramid / weightp / weightb       : 0 / 0 / 0
+x265 [info]: References / ref-limit  cu / depth  : 1 / off / on
+x265 [info]: AQ: mode / str / qg-size / cu-tree  : 2 / 1.0 / 32 / 0
+x265 [info]: Rate Control / qCompress            : CRF-23.0 / 0.60
+x265 [info]: tools: rd=3 psy-rd=2.00 early-skip rskip signhide tmvp b-intra
+x265 [info]: tools: strong-intra-smoothing deblock sao
+Output #0, mp4, to 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_23_intra.mp4':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0: Video: hevc (libx265) (hev1 / 0x31766568), yuv420p, 960x480, q=2-31, 120 fps, 15360 tbn, 120 tbc
+    Metadata:
+      encoder         : Lavc58.54.100 libx265
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+frame=  120 fps= 57 q=-0.0 Lsize=    2042kB time=00:00:00.99 bitrate=16870.7kbits/s speed=0.47x    
+video:2039kB audio:0kB subtitle:0kB other streams:0kB global headers:2kB muxing overhead: 0.177372%
+x265 [info]: frame I:    120, Avg QP:34.43  kb/s: 14692.33
+x265 [info]: consecutive B-frames: 100.0% 
+
+encoded 120 frames in 2.04s (58.76 fps), 14692.33 kb/s, Avg QP:34.43
+ffmpeg version 4.2.4-1ubuntu0.1 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 9 (Ubuntu 9.3.0-10ubuntu2)
+  configuration: --prefix=/usr --extra-version=1ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Input #0, image2, from 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_cropped_images/im%05d.png':
+  Duration: 00:00:01.00, start: 0.000000, bitrate: N/A
+    Stream #0:0: Video: png, rgb24(pc), 960x480, 120 fps, 120 tbr, 120 tbn, 120 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> hevc (libx265))
+Press [q] to stop, [?] for help
+x265 [info]: HEVC encoder version 3.2.1+1-b5c86a64bbbe
+x265 [info]: build info [Linux][GCC 9.3.0][64 bit] 8bit+10bit+12bit
+x265 [info]: using cpu capabilities: MMX2 SSE2Fast LZCNT SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+x265 [info]: Main profile, Level-4 (Main tier)
+x265 [info]: Thread pool 0 using 48 threads on numa nodes 0,1
+x265 [info]: Slices                              : 1
+x265 [info]: frame threads / pool features       : 5 / wpp(8 rows)
+x265 [warning]: Source height < 720p; disabling lookahead-slices
+x265 [info]: Coding QT: max CU size, min CU size : 64 / 8
+x265 [info]: Residual QT: max TU size, max depth : 32 / 1 inter / 1 intra
+x265 [info]: ME / range / subpel / merge         : hex / 57 / 2 / 3
+x265 [info]: Keyframe min / max / scenecut / bias: 25 / 250 / 40 / 5.00
+x265 [info]: Lookahead / bframes / badapt        : 20 / 0 / 2
+x265 [info]: b-pyramid / weightp / weightb       : 0 / 1 / 0
+x265 [info]: References / ref-limit  cu / depth  : 3 / off / on
+x265 [info]: AQ: mode / str / qg-size / cu-tree  : 2 / 1.0 / 32 / 1
+x265 [info]: Rate Control / qCompress            : CRF-25.0 / 0.60
+x265 [info]: tools: rd=3 psy-rd=2.00 early-skip rskip signhide tmvp b-intra
+x265 [info]: tools: strong-intra-smoothing deblock sao
+Output #0, mp4, to 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_25_inter.mp4':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0: Video: hevc (libx265) (hev1 / 0x31766568), yuv420p, 960x480, q=2-31, 120 fps, 15360 tbn, 120 tbc
+    Metadata:
+      encoder         : Lavc58.54.100 libx265
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+frame=  120 fps=0.0 q=-0.0 Lsize=      53kB time=00:00:00.99 bitrate= 437.4kbits/s speed=1.51x    
+video:50kB audio:0kB subtitle:0kB other streams:0kB global headers:2kB muxing overhead: 6.799023%
+x265 [info]: frame I:      1, Avg QP:26.49  kb/s: 32287.68
+x265 [info]: frame P:    119, Avg QP:33.80  kb/s: 134.39  
+x265 [info]: Weighted P-Frames: Y:0.0% UV:0.0%
+x265 [info]: consecutive B-frames: 100.0% 
+
+encoded 120 frames in 0.59s (204.19 fps), 402.34 kb/s, Avg QP:33.74
+ffmpeg version 4.2.4-1ubuntu0.1 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 9 (Ubuntu 9.3.0-10ubuntu2)
+  configuration: --prefix=/usr --extra-version=1ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Input #0, image2, from 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_cropped_images/im%05d.png':
+  Duration: 00:00:01.00, start: 0.000000, bitrate: N/A
+    Stream #0:0: Video: png, rgb24(pc), 960x480, 120 fps, 120 tbr, 120 tbn, 120 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> hevc (libx265))
+Press [q] to stop, [?] for help
+x265 [info]: HEVC encoder version 3.2.1+1-b5c86a64bbbe
+x265 [info]: build info [Linux][GCC 9.3.0][64 bit] 8bit+10bit+12bit
+x265 [info]: using cpu capabilities: MMX2 SSE2Fast LZCNT SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+x265 [info]: Main Intra profile, Level-4 (Main tier)
+x265 [info]: Thread pool 0 using 48 threads on numa nodes 0,1
+x265 [info]: Slices                              : 1
+x265 [info]: frame threads / pool features       : 5 / wpp(8 rows)
+x265 [warning]: Source height < 720p; disabling lookahead-slices
+x265 [info]: Coding QT: max CU size, min CU size : 64 / 8
+x265 [info]: Residual QT: max TU size, max depth : 32 / 1 inter / 1 intra
+x265 [info]: ME / range / subpel / merge         : hex / 57 / 2 / 3
+x265 [info]: Keyframe min / max / scenecut / bias: 1 / 1 / 0 / 5.00
+x265 [info]: Lookahead / bframes / badapt        : 0 / 0 / 0
+x265 [info]: b-pyramid / weightp / weightb       : 0 / 0 / 0
+x265 [info]: References / ref-limit  cu / depth  : 1 / off / on
+x265 [info]: AQ: mode / str / qg-size / cu-tree  : 2 / 1.0 / 32 / 0
+x265 [info]: Rate Control / qCompress            : CRF-25.0 / 0.60
+x265 [info]: tools: rd=3 psy-rd=2.00 early-skip rskip signhide tmvp b-intra
+x265 [info]: tools: strong-intra-smoothing deblock sao
+Output #0, mp4, to 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x265_crf_25_intra.mp4':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0: Video: hevc (libx265) (hev1 / 0x31766568), yuv420p, 960x480, q=2-31, 120 fps, 15360 tbn, 120 tbc
+    Metadata:
+      encoder         : Lavc58.54.100 libx265
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+frame=  120 fps= 60 q=-0.0 Lsize=    1728kB time=00:00:00.99 bitrate=14275.1kbits/s speed=0.499x    
+video:1725kB audio:0kB subtitle:0kB other streams:0kB global headers:2kB muxing overhead: 0.208783%
+x265 [info]: frame I:    120, Avg QP:36.43  kb/s: 12118.31
+x265 [info]: consecutive B-frames: 100.0% 
+
+encoded 120 frames in 1.92s (62.50 fps), 12118.31 kb/s, Avg QP:36.43
+ffmpeg version 4.2.4-1ubuntu0.1 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 9 (Ubuntu 9.3.0-10ubuntu2)
+  configuration: --prefix=/usr --extra-version=1ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Input #0, image2, from 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_cropped_images/im%05d.png':
+  Duration: 00:00:01.00, start: 0.000000, bitrate: N/A
+    Stream #0:0: Video: png, rgb24(pc), 960x480, 120 fps, 120 tbr, 120 tbn, 120 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x5596831cbe80] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x5596831cbe80] profile High, level 3.2
+[libx264 @ 0x5596831cbe80] 264 - core 155 r2917 0a84d98 - H.264/MPEG-4 AVC codec - Copyleft 2003-2018 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=15 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=25.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'HoneyBee_3840x2160_120fps_420_10bit_YUV_960x540_hevc_video_x264_crf_25.mp4':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0: Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 960x480, q=-1--1, 120 fps, 15360 tbn, 120 tbc
+    Metadata:
+      encoder         : Lavc58.54.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+frame=  120 fps=0.0 q=-1.0 Lsize=      65kB time=00:00:00.97 bitrate= 547.4kbits/s speed=2.31x    
+video:63kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 3.516068%
+[libx264 @ 0x5596831cbe80] frame I:1     Avg QP:27.45  size: 38343
+[libx264 @ 0x5596831cbe80] frame P:30    Avg QP:28.32  size:   541
+[libx264 @ 0x5596831cbe80] frame B:89    Avg QP:35.49  size:   103
+[libx264 @ 0x5596831cbe80] consecutive B-frames:  0.8%  0.0%  2.5% 96.7%
+[libx264 @ 0x5596831cbe80] mb I  I16..4:  1.7% 72.7% 25.7%
+[libx264 @ 0x5596831cbe80] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  9.0%  1.2%  0.7%  0.0%  0.0%    skip:89.1%
+[libx264 @ 0x5596831cbe80] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  5.7%  0.0%  0.0%  direct: 0.0%  skip:94.3%  L0:19.5% L1:80.5% BI: 0.0%
+[libx264 @ 0x5596831cbe80] 8x8 transform intra:72.6% inter:88.1%
+[libx264 @ 0x5596831cbe80] coded y,uvDC,uvAC intra: 87.3% 96.8% 87.2% inter: 0.3% 0.6% 0.0%
+[libx264 @ 0x5596831cbe80] i16 v,h,dc,p: 60%  0%  0% 40%
+[libx264 @ 0x5596831cbe80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 20% 12%  6%  7% 10% 13%  9% 10% 12%
+[libx264 @ 0x5596831cbe80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 22% 14%  7%  8% 11% 13%  9%  8%  8%
+[libx264 @ 0x5596831cbe80] i8c dc,h,v,p: 46% 14% 27% 13%
+[libx264 @ 0x5596831cbe80] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x5596831cbe80] ref P L0: 73.5% 15.6%  9.6%  1.4%
+[libx264 @ 0x5596831cbe80] ref B L0: 86.1% 13.8%  0.2%
+[libx264 @ 0x5596831cbe80] ref B L1: 95.8%  4.2%
+[libx264 @ 0x5596831cbe80] kb/s:510.06

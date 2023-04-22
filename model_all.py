@@ -48,7 +48,7 @@ class VideoDataSet(Dataset):
         if self.resize_list != '-1':
             if '_' in self.resize_list:
                 resize_h, resize_w = [int(x) for x in self.resize_list.split('_')]
-                img = interpolate(img, (resize_h, resize_w), 'bicubic')
+                img = interpolate(input=img.unsqueeze(0),size=(resize_h,resize_w),mode='bicubic') #need 4d input to function
             else:
                 resize_hw = int(self.resize_list)
                 img = resize(img, resize_hw,  'bicubic')
@@ -152,10 +152,15 @@ class HNeRV(nn.Module):
     def forward(self, input, input_embed=None, encode_only=False):
         if input_embed != None:
             img_embed = input_embed
+            encoder_time = 0
         else:
             if 'pe' in self.embed:
                 input = self.pe_embed(input[:,None]).float()
+                
+            encoder_start_time = time.time()
             img_embed = self.encoder(input)
+            encoder_end_time = time.time()
+            encoder_time = encoder_end_time - encoder_start_time
 
         # import pdb; pdb.set_trace; from IPython import embed; embed()     
         embed_list = [img_embed]
@@ -173,7 +178,7 @@ class HNeRV(nn.Module):
             torch.cuda.synchronize()
         dec_time = time.time() - dec_start
 
-        return  img_out, embed_list, dec_time
+        return  img_out, embed_list, dec_time, encoder_time
 
 
 class HNeRVDecoder(nn.Module):

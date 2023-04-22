@@ -197,6 +197,21 @@ def loss_fn(pred, target, loss_type='L2', batch_average=True):
         loss = 0.8 * F.l1_loss(pred, target, reduction='none').flatten(1).mean(1) + 0.2 * (1 - ms_ssim(pred, target, data_range=1, size_average=False))
     return loss.mean() if batch_average else loss
 
+def all_psnr(preds,gts):
+    """
+    Predict PSNR on all frames (the correct way). Note that output and GT
+    are normalized to 0-1, so MAX_VALUE == 1 here.
+    """
+
+    #Detach and stack across frames dim
+    a = torch.cat(preds.detach().cpu())
+    b = torch.cat(preds.detach().cpu())
+
+    mse = F.mse_loss(a,b)
+    psnr = 10 * np.log10((1) / (mse + 1e-9)) #value in 0-1; added 1e-9 for stability
+    
+    return psnr
+
 
 def psnr_fn_single(output, gt):
     l2_loss = F.mse_loss(output.detach(), gt.detach(),  reduction='none')

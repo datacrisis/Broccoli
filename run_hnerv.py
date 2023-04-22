@@ -424,8 +424,9 @@ def Dump2CSV(args, best_results_list, results_list, psnr_list, filename='results
         'ModelSize': args.modelsize, 'Epoch':args.epochs, 'Loss':args.loss, 'Act':args.act, 'Norm':args.norm,
         'FC':args.fc_hw, 'Reduce':args.reduce, 'ENC_type':args.conv_type[0], 'ENC_strds':args.enc_strd_str, 'KS':args.ks,
         'enc_dim':args.enc_dim, 'DEC':args.conv_type[1], 'DEC_strds':args.dec_strd_str, 'lower_width':args.lower_width,
-         'Quant':args.quant_str, 'bits/param':args.bits_per_param, 'bits/param w/ overhead':args.full_bits_per_param, 
-        'bits/pixel':args.total_bpp, f'PSNR_list_{args.eval_freq}':','.join([RoundTensor(v, 2) for v in psnr_list]),}
+        'Quant':args.quant_str, 'bits/param':args.bits_per_param, 'bits/param w/ overhead':args.full_bits_per_param, 
+        'bits/pixel':args.total_bpp, f'PSNR_list_{args.eval_freq}':','.join([RoundTensor(v, 2) for v in psnr_list]),
+        'Evaluation Quant Overall PSNR': round(args.eval_quant_overall_PSNR,5), 'Evaluation Orig Overall PSNR': round(args.eval_orig_overall_PSNR,5)}
     result_dict.update({f'best_{k}':RoundTensor(v, 4 if 'ssim' in k else 2) for k,v in zip(args.metric_names, best_results_list)})
     result_dict.update({f'{k}':RoundTensor(v, 4 if 'ssim' in k else 2) for k,v in zip(args.metric_names, results_list) if 'pred' in k})
     csv_path = os.path.join(args.outf, filename)
@@ -451,6 +452,7 @@ def evaluate(model, full_dataloader, local_rank, args,
     
     for model_ind, cur_model in enumerate(model_list):
         time_list = []
+        preds,gts = [],[]
         cur_model.eval()
         device = next(cur_model.parameters()).device
         if dump_vis:
@@ -506,6 +508,10 @@ def evaluate(model, full_dataloader, local_rank, args,
                 for _ in range(100):
                     img_out, embed_list, dec_time,encoder_time = cur_model(cur_input, embed_list[0])
                     time_list.append(dec_time)
+
+            #Store pred frame and gt for overall PSNR computation (not just per batch or frame)
+            preds.append(img_out)
+            gts.append(img_gt)
 
             # compute psnr and ms-ssim
             pred_psnr, pred_ssim = psnr_fn_batch([img_out], img_gt), msssim_fn_batch([img_out], img_gt)
@@ -563,6 +569,14 @@ def evaluate(model, full_dataloader, local_rank, args,
             if not args.dump_images:
                 shutil.rmtree(visual_dir)
             # optimize(gif_file)
+
+        #Compute Overall PSNR
+        overall_psnr = all_psnr(preds,gts)
+
+        if model_ind: #quantized model
+            args.eval_orig_overall_PSNR = overall_psnr #log
+        elif not model_ind: #original model
+            args.eval_quant_overall_PSNR = overall_psnr #log
            
     
     #Store args            

@@ -1,7 +1,6 @@
 __pycache__/
 .ipynb_checkpoints/
 output/
-data/
 checkpoints/
 *output/
 compiled_out

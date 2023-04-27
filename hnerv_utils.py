@@ -7,6 +7,7 @@ import torch.distributed as dist
 import torch.nn as nn
 import torch.nn.functional as F
 from pytorch_msssim import ms_ssim, ssim
+from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 
 ################## split one video into seen/unseen frames ##################
 def data_split(img_list, split_num_list, shuffle_data, rand_num=0):
@@ -162,7 +163,8 @@ def psnr2(img1, img2):
     return psnr
 
 
-def loss_fn(pred, target, loss_type='L2', batch_average=True):
+
+def loss_fn(pred, target, loss_type='L2', batch_average=True,LPIPS=None):
     target = target.detach()
 
     if loss_type == 'L2':
@@ -195,6 +197,17 @@ def loss_fn(pred, target, loss_type='L2', batch_average=True):
         loss = 0.9 * F.l1_loss(pred, target, reduction='none').flatten(1).mean(1) + 0.1 * (1 - ms_ssim(pred, target, data_range=1, size_average=False))
     elif loss_type == 'Fusion12':
         loss = 0.8 * F.l1_loss(pred, target, reduction='none').flatten(1).mean(1) + 0.2 * (1 - ms_ssim(pred, target, data_range=1, size_average=False))
+    
+    #New Loss
+    elif loss_type == 'Super-L2':
+        loss_1 = F.mse_loss(pred, target, reduction='none').flatten(1).mean(1)
+        loss_2 = LPIPS(pred,target) 
+        loss = loss_1 + loss_2
+    elif loss_type == 'Super-L1':
+        loss_1 = F.l1_loss(pred, target, reduction='none').flatten(1).mean(1)
+        loss_2 = LPIPS(pred,target) 
+        loss = loss_1 + loss_2
+
     return loss.mean() if batch_average else loss
 
 def all_psnr(preds,gts):

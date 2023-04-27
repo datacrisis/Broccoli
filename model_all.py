@@ -145,6 +145,7 @@ class HNeRV(nn.Module):
                 decoder_layers.append(cur_blk)
                 ngf = new_ngf
         
+        #Store final ngf for reference
         self.decoder = nn.ModuleList(decoder_layers)
         self.head_layer = nn.Conv2d(ngf, 3, 3, 1, 1) 
         self.out_bias = args.out_bias

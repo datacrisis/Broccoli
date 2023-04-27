@@ -42,6 +42,10 @@ def main():
     parser.add_argument('--modelsize', type=float,  default=1.5, help='model parameters size: model size + embedding parameters')
     parser.add_argument('--saturate_stages', type=int, default=-1, help='saturate stages for model size computation')
 
+    #New Args for Super res
+    parser.add_argument('--super', action='store_true', default=False, help='Enable flag to perform super resolution; default 2x')
+    parser.add_argument('--super_rate', type=int, default=2, help='How many times upsampled output', choices=[2,4])
+
     # Decoding parameters: FC + Conv
     parser.add_argument('--fc_hw', type=str, default='9_16', help='out size (h,w) for mlp')
     parser.add_argument('--reduce', type=float, default=1.2, help='chanel reduction for next stage')
@@ -195,6 +199,27 @@ def train(local_rank, args):
     # Building model
     model = HNeRV(args)
 
+    # Update model here if super-res | HACKY PATCH, integrate formally if works later
+    if args.super:
+
+      #Import 
+      import torch.nn as nn
+      from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
+
+      #Check loss function
+      assert args.loss in ['Super-L1','Super-L2'], Exception("Error! Super-res enabled but loss function is {}; use Super-L1 or Super-L2 instead.".format(args.loss))
+      
+      #Get original model head_layer's input channel
+      head_in_channel = model.head_layer.in_channels
+
+      model.head_layer = nn.Sequential(nn.ConvTranspose2d(head_in_channel,head_in_channel,3,2,1),
+                                       nn.Conv2d(head_in_channel,head_in_channel, 2, groups=head_in_channel, padding=1),#depthwise conv
+                                       nn.Conv2d(head_in_channel,3, 1,)) #pointwise conv output
+
+      #New loss function
+      criterionLPIPS = LearnedPerceptualImagePatchSimilarity(net_type='squeeze')
+
+
     ##### get model params and flops #####
     if local_rank in [0, None]:
         encoder_param = (sum([p.data.nelement() for p in model.encoder.parameters()]) / 1e6) 
@@ -213,10 +238,21 @@ def train(local_rank, args):
     print("Use GPU: {} for training".format(local_rank))
     if args.distributed and args.ngpus_per_node > 1:
         model = torch.nn.parallel.DistributedDataParallel(model.to(local_rank), device_ids=[local_rank], output_device=local_rank, find_unused_parameters=False)
+        
+        #Do not support distributed training for super-res yet
+        if args.super:
+            raise Exception("Warning, support for distributed training + Super-Res with perceptual loss is not supported in current code yet")
+    
     elif args.ngpus_per_node > 1:
         model = torch.nn.DataParallel(model)
+
+        #Do not support distributed training for super-res yet
+        if args.super:
+            raise Exception("Warning, support for distributed training + Super-Res with perceptual loss is not supported in current code yet")
+    
     elif torch.cuda.is_available():
         model = model.cuda()
+        criterionLPIPS = criterionLPIPS.to('cuda')
 
     optimizer = optim.Adam(model.parameters(), weight_decay=0.)
     args.transform_func = TransformInput(args)
@@ -320,7 +356,8 @@ def train(local_rank, args):
             raw_fu_encode_time += delta_fu
             
             
-            final_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss)      
+            final_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss,
+                                 LPIPS = criterionLPIPS if args.super else None)      
             optimizer.zero_grad()
             final_loss.backward()
             optimizer.step()

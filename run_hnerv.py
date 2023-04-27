@@ -212,8 +212,18 @@ def train(local_rank, args):
       #Get original model head_layer's input channel
       head_in_channel = model.head_layer.in_channels
 
-      model.head_layer = nn.Sequential(nn.ConvTranspose2d(head_in_channel,head_in_channel,3,2,1),
-                                       nn.Conv2d(head_in_channel,head_in_channel, 2, groups=head_in_channel, padding=1),#depthwise conv
+      #Determine head layer param based on super-res ratio
+      if args.super_rate == 2:
+          transpose_stride = 2 
+          depth_kernel = 2
+          depth_padding = 1
+      elif args.super_rate == 4:
+          transpose_stride = 4 
+          depth_kernel = 3
+          depth_padding = 3
+
+      model.head_layer = nn.Sequential(nn.ConvTranspose2d(head_in_channel,head_in_channel,3,transpose_stride,1),
+                                       nn.Conv2d(head_in_channel,head_in_channel, depth_kernel, groups=head_in_channel, padding=depth_padding),#depthwise conv
                                        nn.Conv2d(head_in_channel,3, 1,)) #pointwise conv output
 
       #New loss function

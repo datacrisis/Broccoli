@@ -36,7 +36,11 @@ class VideoDataSet(Dataset):
         self.crop_list, self.resize_list = args.crop_list, args.resize_list
         # import pdb; pdb.set_trace; from IPython import embed; embed()     
         first_frame,first_frame_down = self.img_transform(self.img_load(0))
-        self.final_size = first_frame_down.size(-2) * first_frame_down.size(-1)
+        
+        if self.super:
+            self.final_size = first_frame_down.size(-2) * first_frame_down.size(-1)
+        else:
+            self.final_size = first_frame.size(-2) * first_frame.size(-1)
         
 
 
@@ -50,7 +54,7 @@ class VideoDataSet(Dataset):
     def img_transform(self, img):
         
         #Setup dummy var
-        down_img = None
+        down_img = 0
         
         if self.crop_list != '-1': 
             crop_h, crop_w = [int(x) for x in self.crop_list.split('_')[:2]]

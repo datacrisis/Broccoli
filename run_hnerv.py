@@ -262,7 +262,9 @@ def train(local_rank, args):
     
     elif torch.cuda.is_available():
         model = model.cuda()
-        criterionLPIPS = criterionLPIPS.to('cuda')
+        
+        if args.super:
+            criterionLPIPS = criterionLPIPS.to('cuda')
 
     optimizer = optim.Adam(model.parameters(), weight_decay=0.)
     args.transform_func = TransformInput(args)
@@ -346,10 +348,7 @@ def train(local_rank, args):
             #Start Track time (full)
             start_time_fu = time.time()
             
-            img_data, img_down_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), 
-                                                         data_to_gpu(sample['img_down'], device),
-                                                         data_to_gpu(sample['norm_idx'], device), 
-                                                         data_to_gpu(sample['idx'], device)
+            img_data, img_down_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), data_to_gpu(sample['img_down'], device),data_to_gpu(sample['norm_idx'], device), data_to_gpu(sample['idx'], device)
             if i > 10 and args.debug:
                 break
                 
@@ -357,6 +356,8 @@ def train(local_rank, args):
             if args.super:
                 img_gt = img_data
                 img_data = img_down_data
+            else: 
+                img_gt = img_data
             
             cur_input = norm_idx if 'pe' in args.embed else img_data
             cur_epoch = (epoch + float(i) / len(train_dataloader)) / args.epochs
@@ -479,7 +480,7 @@ def Dump2CSV(args, best_results_list, results_list, psnr_list, filename='results
         'enc_dim':args.enc_dim, 'DEC':args.conv_type[1], 'DEC_strds':args.dec_strd_str, 'lower_width':args.lower_width,
         'Quant':args.quant_str, 'bits/param':args.bits_per_param, 'bits/param w/ overhead':args.full_bits_per_param, 
         'bits/pixel':args.total_bpp, f'PSNR_list_{args.eval_freq}':','.join([RoundTensor(v, 2) for v in psnr_list]),
-        'Evaluation Quant Overall PSNR': round(args.eval_quant_overall_PSNR,5), 'Evaluation Orig Overall PSNR': round(args.eval_orig_overall_PSNR,5)}
+        'Evaluation Quant Overall PSNR': args.eval_quant_overall_PSNR, 'Evaluation Orig Overall PSNR': args.eval_orig_overall_PSNR}
     result_dict.update({f'best_{k}':RoundTensor(v, 4 if 'ssim' in k else 2) for k,v in zip(args.metric_names, best_results_list)})
     result_dict.update({f'{k}':RoundTensor(v, 4 if 'ssim' in k else 2) for k,v in zip(args.metric_names, results_list) if 'pred' in k})
     csv_path = os.path.join(args.outf, filename)
@@ -520,15 +521,14 @@ def evaluate(model, full_dataloader, local_rank, args,
             #Start track time to decode speed (full)
             start_time_fu = time.time()
             
-            img_data, img_down_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), 
-                                                         data_to_gpu(sample['img_down'], device),
-                                                         data_to_gpu(sample['norm_idx'], device), 
-                                                         data_to_gpu(sample['idx'], device)
+            img_data, img_down_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), data_to_gpu(sample['img_down'], device),data_to_gpu(sample['norm_idx'], device), data_to_gpu(sample['idx'], device)
                 
             #Overwrite for super-res
             if args.super:
                 img_gt = img_data
                 img_data = img_down_data
+            else:
+                img_gt = img_data
                 
             cur_input = norm_idx if 'pe' in args.embed else img_data
             
@@ -585,6 +585,10 @@ def evaluate(model, full_dataloader, local_rank, args,
                     full_ind = i * args.batchSize + batch_ind
                     dump_img_list = [img_data[batch_ind], img_out[batch_ind]]
                     temp_psnr_list = ','.join([str(round(x[batch_ind].item(), 2)) for x in pred_psnr])
+                    if not args.super:
+                        dump_img_list = [img_data[batch_ind], img_out[batch_ind]]
+                    else: #super res, take gt instead of input as comparison,
+                        dump_img_list = [img_gt[batch_ind], img_out[batch_ind]]
                     concat_img = torch.cat(dump_img_list, dim=2)    #img_out[batch_ind], 
                     save_image(concat_img, f'{visual_dir}/pred_{full_ind:04d}_{temp_psnr_list}.png')
 

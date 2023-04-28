@@ -14,6 +14,7 @@ from timm.models.layers import trunc_normal_, DropPath
 from pytorchvideo.data.encoded_video import EncodedVideo
 from torchvision.transforms.functional import center_crop, resize
 from torchvision.io import read_image
+from torchvision.transforms import InterpolationMode
 from torch.nn.functional import interpolate
 import decord
 decord.bridge.set_bridge('torch')
@@ -27,11 +28,17 @@ class VideoDataSet(Dataset):
         else:
             self.video = [os.path.join(args.data_path, x) for x in sorted(os.listdir(args.data_path))]
 
+        #Track stat
+        self.super = args.super
+        self.super_rate = args.super_rate
+            
         # Resize the input video and center crop
         self.crop_list, self.resize_list = args.crop_list, args.resize_list
         # import pdb; pdb.set_trace; from IPython import embed; embed()     
-        first_frame = self.img_transform(self.img_load(0))
-        self.final_size = first_frame.size(-2) * first_frame.size(-1)
+        first_frame,first_frame_down = self.img_transform(self.img_load(0))
+        self.final_size = first_frame_down.size(-2) * first_frame_down.size(-1)
+        
+
 
     def img_load(self, idx):
         if isinstance(self.video, list):
@@ -41,6 +48,10 @@ class VideoDataSet(Dataset):
         return img / 255.
 
     def img_transform(self, img):
+        
+        #Setup dummy var
+        down_img = None
+        
         if self.crop_list != '-1': 
             crop_h, crop_w = [int(x) for x in self.crop_list.split('_')[:2]]
             if 'last' not in self.crop_list:
@@ -51,18 +62,27 @@ class VideoDataSet(Dataset):
                 img = interpolate(input=img.unsqueeze(0),size=(resize_h,resize_w),mode='bicubic') #need 4d input to function
             else:
                 resize_hw = int(self.resize_list)
-                img = resize(img, resize_hw,  'bicubic')
+                img = resize(img, resize_hw,  InterpolationMode.BICUBIC)
+        
         if 'last' in self.crop_list:
             img = center_crop(img, (crop_h, crop_w))
-        return img
+
+        #If super res is enabled, downsample input image and use original image as target and downsampled image as input
+        if self.super:
+            rate = self.super_rate #downsampling rate
+            _, curr_h, curr_w = img.shape
+            new_w, new_h = round(curr_w // rate,-1), round(curr_h // rate,-1)
+            down_img = resize(img, (new_h,new_w),  InterpolationMode.BICUBIC)
+            
+        return img, down_img
 
     def __len__(self):
         return len(self.video)
 
     def __getitem__(self, idx):
-        tensor_image = self.img_transform(self.img_load(idx))
+        tensor_image,tensor_image_down = self.img_transform(self.img_load(idx))
         norm_idx = float(idx) / len(self.video)
-        sample = {'img': tensor_image, 'idx': idx, 'norm_idx': norm_idx}
+        sample = {'img': tensor_image, 'img_down': tensor_image_down, 'idx': idx, 'norm_idx': norm_idx}
         
         return sample
 

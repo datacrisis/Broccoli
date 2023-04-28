@@ -217,8 +217,10 @@ def all_psnr(preds,gts):
     """
 
     #Detach and stack across frames dim
-    a = torch.cat(preds.detach().cpu())
-    b = torch.cat(preds.detach().cpu())
+    preds = [i.detach().cpu() for i in preds]
+    gts = [i.detach().cpu() for i in gts]
+    a = torch.cat(preds)
+    b = torch.cat(gts)
 
     mse = F.mse_loss(a,b)
     psnr = 10 * np.log10((1) / (mse + 1e-9)) #value in 0-1; added 1e-9 for stability

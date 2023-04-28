@@ -1,0 +1,180 @@
+Will run through bunny_sbatch_test_out_32_18
+init_method: tcp://127.0.0.1:22573
+Namespace(data_path='/scratch/ar7996/ivp/uvgdataset/Beauty_3840x2160_120fps_420_10bit_YUV_RAW/Beauty_3840x2160_120fps_420_10bit_YUV_960x540_downsampled_images', vid='beauty_sbatch_test_32_18', shuffle_data=False, data_split='1_1_1', crop_list='480_960', resize_list='-1', embed='', ks='0_1_5', enc_strds=[5, 4, 3, 2, 2], enc_dim='64_16', modelsize=1.5, saturate_stages=-1, fc_hw='9_16', reduce=1.2, lower_width=12, dec_strds=[5, 4, 3, 2, 2], num_blks='1_1', conv_type=['convnext', 'pshuffel'], norm='none', act='gelu', compression_method='huffman', workers=4, batchSize=1, start_epoch=-1, not_resume=False, epochs=2, block_params='1_1', lr=0.001, lr_type='cosine_0.1_1_0.1', loss='L2', out_bias='tanh', eval_only=False, eval_freq=1, quant_model_bit=32, quant_embed_bit=18, quant_axis=0, dump_images=True, dump_videos=False, eval_fps=False, encoder_file='', manualSeed=1, distributed=False, debug=False, print_freq=50, weight='None', overwrite=False, outf='output/beauty_sbatch_test_out_32_18/beauty_sbatch_test_32_18/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e2_b1_quant_M32_E18_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,3,2,2_DEC_pshuffel_5,4,3,2,2_gelu1_1', suffix='', enc_strd_str='5,4,3,2,2', dec_strd_str='5,4,3,2,2', quant_str='quant_M32_E18', exp_id='beauty_sbatch_test_32_18/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e2_b1_quant_M32_E18_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,3,2,2_DEC_pshuffel_5,4,3,2,2_gelu1_1', init_method='tcp://127.0.0.1:22573', ngpus_per_node=0, metric_names=['pred_seen_psnr', 'pred_seen_ssim', 'pred_unseen_psnr', 'pred_unseen_ssim', 'quant_seen_psnr', 'quant_seen_ssim', 'quant_unseen_psnr', 'quant_unseen_ssim'], final_size=460800, full_data_length=120, val_ind_list=[], dump_vis=True, fc_dim=78, encoder_param=0.277488, decoder_param=1.47604, total_param=1.4914)
+ HNeRV(
+  (encoder): ConvNeXt(
+    (downsample_layers): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(3, 64, kernel_size=(5, 5), stride=(5, 5))
+        (1): LayerNorm()
+      )
+      (1): Sequential(
+        (0): LayerNorm()
+        (1): Conv2d(64, 64, kernel_size=(4, 4), stride=(4, 4))
+      )
+      (2): Sequential(
+        (0): LayerNorm()
+        (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(3, 3))
+      )
+      (3): Sequential(
+        (0): LayerNorm()
+        (1): Conv2d(64, 64, kernel_size=(2, 2), stride=(2, 2))
+      )
+      (4): Sequential(
+        (0): LayerNorm()
+        (1): Conv2d(64, 16, kernel_size=(2, 2), stride=(2, 2))
+      )
+    )
+    (stages): ModuleList(
+      (0): Sequential(
+        (0): Block(
+          (dwconv): Conv2d(64, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=64)
+          (norm): LayerNorm()
+          (pwconv1): Linear(in_features=64, out_features=256, bias=True)
+          (act): GELU()
+          (pwconv2): Linear(in_features=256, out_features=64, bias=True)
+          (drop_path): Identity()
+        )
+      )
+      (1): Sequential(
+        (0): Block(
+          (dwconv): Conv2d(64, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=64)
+          (norm): LayerNorm()
+          (pwconv1): Linear(in_features=64, out_features=256, bias=True)
+          (act): GELU()
+          (pwconv2): Linear(in_features=256, out_features=64, bias=True)
+          (drop_path): Identity()
+        )
+      )
+      (2): Sequential(
+        (0): Block(
+          (dwconv): Conv2d(64, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=64)
+          (norm): LayerNorm()
+          (pwconv1): Linear(in_features=64, out_features=256, bias=True)
+          (act): GELU()
+          (pwconv2): Linear(in_features=256, out_features=64, bias=True)
+          (drop_path): Identity()
+        )
+      )
+      (3): Sequential(
+        (0): Block(
+          (dwconv): Conv2d(64, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=64)
+          (norm): LayerNorm()
+          (pwconv1): Linear(in_features=64, out_features=256, bias=True)
+          (act): GELU()
+          (pwconv2): Linear(in_features=256, out_features=64, bias=True)
+          (drop_path): Identity()
+        )
+      )
+      (4): Sequential(
+        (0): Block(
+          (dwconv): Conv2d(16, 16, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=16)
+          (norm): LayerNorm()
+          (pwconv1): Linear(in_features=16, out_features=64, bias=True)
+          (act): GELU()
+          (pwconv2): Linear(in_features=64, out_features=16, bias=True)
+          (drop_path): Identity()
+        )
+      )
+    )
+  )
+  (decoder): ModuleList(
+    (0): NeRVBlock(
+      (conv): DownConv(
+        (downconv): Conv2d(16, 78, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (norm): Identity()
+      (act): GELU()
+    )
+    (1): NeRVBlock(
+      (conv): UpConv(
+        (upconv): Sequential(
+          (0): Conv2d(78, 1625, kernel_size=(1, 1), stride=(1, 1))
+          (1): PixelShuffle(upscale_factor=5)
+        )
+      )
+      (norm): Identity()
+      (act): GELU()
+    )
+    (2): NeRVBlock(
+      (conv): UpConv(
+        (upconv): Sequential(
+          (0): Conv2d(65, 864, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): PixelShuffle(upscale_factor=4)
+        )
+      )
+      (norm): Identity()
+      (act): GELU()
+    )
+    (3): NeRVBlock(
+      (conv): UpConv(
+        (upconv): Sequential(
+          (0): Conv2d(54, 405, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+          (1): PixelShuffle(upscale_factor=3)
+        )
+      )
+      (norm): Identity()
+      (act): GELU()
+    )
+    (4): NeRVBlock(
+      (conv): UpConv(
+        (upconv): Sequential(
+          (0): Conv2d(45, 152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+      )
+      (norm): Identity()
+      (act): GELU()
+    )
+    (5): NeRVBlock(
+      (conv): UpConv(
+        (upconv): Sequential(
+          (0): Conv2d(38, 128, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+          (1): PixelShuffle(upscale_factor=2)
+        )
+      )
+      (norm): Identity()
+      (act): GELU()
+    )
+  )
+  (head_layer): Conv2d(32, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+)
+ Encoder_0.28M_Decoder_1.48M_Total_1.49M
+Use GPU: None for training
+=> No resume checkpoint found at 'output/beauty_sbatch_test_out_32_18/beauty_sbatch_test_32_18/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e2_b1_quant_M32_E18_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,3,2,2_DEC_pshuffel_5,4,3,2,2_gelu1_1/model_latest.pth'
+[2023/04/01 14:30:04] Rank:None, Epoch[1/2], Step [1/120], lr:1.00e-04 pred_PSNR: 9.34
+[2023/04/01 14:30:59] Rank:None, Epoch[1/2], Step [51/120], lr:9.65e-04 pred_PSNR: 13.0
+[2023/04/01 14:31:54] Rank:None, Epoch[1/2], Step [101/120], lr:7.24e-04 pred_PSNR: 14.98
+[2023/04/01 14:32:15] Rank:None, Epoch[1/2], Step [120/120], lr:5.94e-04 pred_PSNR: 15.93
+Time/epoch: 	Current:132.76 	Average:132.76
+[2023/04/01 14:32:16] Rank:None, Eval at Step [1/120] , FPS 7.8, pred_seen_psnr: 21.96 | 
+[2023/04/01 14:32:33] Rank:None, Eval at Step [51/120] , FPS 8.7, pred_seen_psnr: 21.77 | 
+[2023/04/01 14:32:51] Rank:None, Eval at Step [101/120] , FPS 7.9, pred_seen_psnr: 21.68 | 
+[2023/04/01 14:32:59] Rank:None, Eval at Step [120/120] , FPS 7.7, pred_seen_psnr: 21.69 | 
+[2023/04/01 14:32:59] Rank:None, Eval at Step [1/120] , FPS 3.7, quant_seen_psnr: 21.13 | 
+[2023/04/01 14:33:08] Rank:None, Eval at Step [51/120] , FPS 7.2, quant_seen_psnr: 21.66 | 
+[2023/04/01 14:33:17] Rank:None, Eval at Step [101/120] , FPS 7.7, quant_seen_psnr: 21.68 | 
+[2023/04/01 14:33:20] Rank:None, Eval at Step [120/120] , FPS 7.7, quant_seen_psnr: 21.64 | 
+After quantization and encoding: 
+ bits per parameter: 1.49, bits per pixel: 0.0402
+Eval at epoch 1 for (480, 960): pred_seen_psnr: 21.69 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 21.64 | quant_unseen_psnr: 0.0 | 
+[2023/04/01 14:33:25] Rank:None, Epoch[2/2], Step [1/120], lr:5.87e-04 pred_PSNR: 21.87
+[2023/04/01 14:34:23] Rank:None, Epoch[2/2], Step [51/120], lr:2.38e-04 pred_PSNR: 22.26
+[2023/04/01 14:35:18] Rank:None, Epoch[2/2], Step [101/120], lr:2.10e-05 pred_PSNR: 22.58
+[2023/04/01 14:35:41] Rank:None, Epoch[2/2], Step [120/120], lr:5.29e-08 pred_PSNR: 22.67
+Time/epoch: 	Current:138.10 	Average:169.46
+Saving predictions to output/beauty_sbatch_test_out_32_18/beauty_sbatch_test_32_18/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e2_b1_quant_M32_E18_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,3,2,2_DEC_pshuffel_5,4,3,2,2_gelu1_1/visualize_model_orig...
+[2023/04/01 14:35:43] Rank:None, Eval at Step [1/120] , FPS 4.5, pred_seen_psnr: 23.39 | 
+[2023/04/01 14:36:19] Rank:None, Eval at Step [51/120] , FPS 7.1, pred_seen_psnr: 23.1 | 
+[2023/04/01 14:36:54] Rank:None, Eval at Step [101/120] , FPS 6.8, pred_seen_psnr: 23.06 | 
+[2023/04/01 14:37:09] Rank:None, Eval at Step [120/120] , FPS 6.6, pred_seen_psnr: 23.07 | 
+Saving predictions to output/beauty_sbatch_test_out_32_18/beauty_sbatch_test_32_18/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e2_b1_quant_M32_E18_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,3,2,2_DEC_pshuffel_5,4,3,2,2_gelu1_1/visualize_model_quant...
+[2023/04/01 14:37:10] Rank:None, Eval at Step [1/120] , FPS 3.3, quant_seen_psnr: 23.36 | 
+[2023/04/01 14:37:35] Rank:None, Eval at Step [51/120] , FPS 7.0, quant_seen_psnr: 22.96 | 
+[2023/04/01 14:38:03] Rank:None, Eval at Step [101/120] , FPS 6.6, quant_seen_psnr: 22.99 | 
+[2023/04/01 14:38:12] Rank:None, Eval at Step [120/120] , FPS 6.9, quant_seen_psnr: 22.97 | 
+After quantization and encoding: 
+ bits per parameter: 1.48, bits per pixel: 0.04
+Eval at epoch 2 for (480, 960): pred_seen_psnr: 23.07 | pred_unseen_psnr: 0.0 | quant_seen_psnr: 22.97 | quant_unseen_psnr: 0.0 | 
+results dumped to output/beauty_sbatch_test_out_32_18/beauty_sbatch_test_32_18/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e2_b1_quant_M32_E18_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,3,2,2_DEC_pshuffel_5,4,3,2,2_gelu1_1/epoch2.csv
+Training complete in: 0:08:11.892079

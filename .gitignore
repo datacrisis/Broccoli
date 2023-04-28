@@ -4,3 +4,4 @@ output/
 checkpoints/
 *output/
 compiled_out
+data/

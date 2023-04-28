@@ -202,32 +202,32 @@ def train(local_rank, args):
     # Update model here if super-res | HACKY PATCH, integrate formally if works later
     if args.super:
 
-      #Import 
-      import torch.nn as nn
-      from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
+        #Import 
+        import torch.nn as nn
+        from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 
-      #Check loss function
-      assert args.loss in ['Super-L1','Super-L2'], Exception("Error! Super-res enabled but loss function is {}; use Super-L1 or Super-L2 instead.".format(args.loss))
+        #Check loss function
+        assert args.loss in ['Super-L1','Super-L2'], Exception("Error! Super-res enabled but loss function is {}; use Super-L1 or Super-L2 instead.".format(args.loss))
       
-      #Get original model head_layer's input channel
-      head_in_channel = model.head_layer.in_channels
+        #Get original model head_layer's input channel
+        head_in_channel = model.head_layer.in_channels
 
-      #Determine head layer param based on super-res ratio
-      if args.super_rate == 2:
-          transpose_stride = 2 
-          depth_kernel = 2
-          depth_padding = 1
-      elif args.super_rate == 4:
-          transpose_stride = 4 
-          depth_kernel = 3
-          depth_padding = 3
+        #Determine head layer param based on super-res ratio
+        if args.super_rate == 2:
+            transpose_stride = 2 
+            depth_kernel = 2
+            depth_padding = 1
+        elif args.super_rate == 4:
+            transpose_stride = 4 
+            depth_kernel = 3
+            depth_padding = 3
 
-      model.head_layer = nn.Sequential(nn.ConvTranspose2d(head_in_channel,head_in_channel,3,transpose_stride,1),
-                                       nn.Conv2d(head_in_channel,head_in_channel, depth_kernel, groups=head_in_channel, padding=depth_padding),#depthwise conv
+        model.head_layer = nn.Sequential(nn.ConvTranspose2d(head_in_channel,head_in_channel,3,transpose_stride,1),
+                                       nn.Conv2d(head_in_channel,head_in_channel, depth_kernel, groups=head_in_channel,padding=depth_padding),#depthwise conv
                                        nn.Conv2d(head_in_channel,3, 1,)) #pointwise conv output
 
-      #New loss function
-      criterionLPIPS = LearnedPerceptualImagePatchSimilarity(net_type='squeeze')
+        #New loss function
+        criterionLPIPS = LearnedPerceptualImagePatchSimilarity(net_type='squeeze')
 
 
     ##### get model params and flops #####
@@ -346,12 +346,18 @@ def train(local_rank, args):
             #Start Track time (full)
             start_time_fu = time.time()
             
-            img_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), data_to_gpu(sample['norm_idx'], device), data_to_gpu(sample['idx'], device)
+            img_data, img_down_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), 
+                                                         data_to_gpu(sample['img_down'], device),
+                                                         data_to_gpu(sample['norm_idx'], device), 
+                                                         data_to_gpu(sample['idx'], device)
             if i > 10 and args.debug:
                 break
                 
-            # forward and backward
-            img_data, img_gt, inpaint_mask = args.transform_func(img_data)
+            #Overwrite for super-res
+            if args.super:
+                img_gt = img_data
+                img_data = img_down_data
+            
             cur_input = norm_idx if 'pe' in args.embed else img_data
             cur_epoch = (epoch + float(i) / len(train_dataloader)) / args.epochs
             lr = adjust_lr(optimizer, cur_epoch, args)
@@ -366,7 +372,7 @@ def train(local_rank, args):
             raw_fu_encode_time += delta_fu
             
             
-            final_loss = loss_fn(img_out*inpaint_mask, img_gt*inpaint_mask, args.loss,
+            final_loss = loss_fn(img_out, img_gt, args.loss,
                                  LPIPS = criterionLPIPS if args.super else None)      
             optimizer.zero_grad()
             final_loss.backward()
@@ -514,10 +520,16 @@ def evaluate(model, full_dataloader, local_rank, args,
             #Start track time to decode speed (full)
             start_time_fu = time.time()
             
-            img_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), data_to_gpu(sample['norm_idx'], device), data_to_gpu(sample['idx'], device)
-            if i > 10 and args.debug:
-                break
-            img_data, img_gt, inpaint_mask = args.transform_func(img_data)
+            img_data, img_down_data, norm_idx, img_idx = data_to_gpu(sample['img'], device), 
+                                                         data_to_gpu(sample['img_down'], device),
+                                                         data_to_gpu(sample['norm_idx'], device), 
+                                                         data_to_gpu(sample['idx'], device)
+                
+            #Overwrite for super-res
+            if args.super:
+                img_gt = img_data
+                img_data = img_down_data
+                
             cur_input = norm_idx if 'pe' in args.embed else img_data
             
             #Start track time to decode speed (fp only)

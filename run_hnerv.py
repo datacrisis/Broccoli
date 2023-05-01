@@ -172,6 +172,12 @@ def train(local_rank, args):
     train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset) if args.distributed else None
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batchSize, shuffle=(train_sampler is None),
          num_workers=args.workers, pin_memory=True, sampler=train_sampler, drop_last=True, worker_init_fn=worker_init_fn)
+         
+    #Re init a new dataloader WITHOUT shuffling for eval
+    full_dataloader_noshuffle = torch.utils.data.DataLoader(full_dataset, batch_size=args.batchSize, 
+                                                                shuffle=False, num_workers=args.workers,
+                                                                pin_memory=True, sampler=sampler, 
+                                                                drop_last=False, worker_init_fn=worker_init_fn)
 
     # Compute the parameter number
     if 'pe' in args.embed or 'le' in args.embed:
@@ -207,7 +213,7 @@ def train(local_rank, args):
         from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 
         #Check loss function
-        assert args.loss in ['Super-L1','Super-L2'], Exception("Error! Super-res enabled but loss function is {}; use Super-L1 or Super-L2 instead.".format(args.loss))
+        assert args.loss in ['Super-L1','Super-L2','L2','L1'], Exception("Error! Super-res enabled but loss function is {}; use Super-L1 or Super-L2 instead.".format(args.loss))
       
         #Get original model head_layer's input channel
         head_in_channel = model.head_layer.in_channels
@@ -303,12 +309,6 @@ def train(local_rank, args):
         args.start_epoch = max(args.start_epoch, 0)
 
     if args.eval_only:
-
-        #Re init a new dataloader WITHOUT shuffling for eval
-        full_dataloader_noshuffle = torch.utils.data.DataLoader(full_dataset, batch_size=args.batchSize, 
-                                                                shuffle=False, num_workers=args.workers,
-                                                                pin_memory=True, sampler=sampler, 
-                                                                drop_last=False, worker_init_fn=worker_init_fn)
 
         print_str = 'Evaluation ... \n {} Results for checkpoint: {}\n'.format(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'), args.weight)
         results_list, hw = evaluate(model, full_dataloader_noshuffle, local_rank, args, args.dump_vis, args.compression_method)
@@ -406,7 +406,7 @@ def train(local_rank, args):
         # evaluation
         if (epoch + 1) % args.eval_freq == 0 or (args.epochs - epoch) in [1, 3, 5]:
             results_list, hw = evaluate(model, 
-                                        full_dataloader, 
+                                        full_dataloader_noshuffle, 
                                         local_rank, 
                                         args, 
                                         args.dump_vis if epoch == args.epochs - 1 else False, 
@@ -593,6 +593,8 @@ def evaluate(model, full_dataloader, local_rank, args,
                     save_image(concat_img, f'{visual_dir}/pred_{full_ind:04d}_{temp_psnr_list}.png')
 
             # print eval results and add to log txt
+            
+
             if i % args.print_freq == 0 or i == len(full_dataloader) - 1:
                 avg_time = sum(time_list) / len(time_list)
                 fps = args.batchSize / avg_time

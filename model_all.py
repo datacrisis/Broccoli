@@ -55,7 +55,7 @@ class VideoDataSet(Dataset):
         
         #Setup dummy var
         down_img = 0
-        
+                
         if self.crop_list != '-1': 
             crop_h, crop_w = [int(x) for x in self.crop_list.split('_')[:2]]
             if 'last' not in self.crop_list:
@@ -77,7 +77,7 @@ class VideoDataSet(Dataset):
             _, curr_h, curr_w = img.shape
             new_w, new_h = round(curr_w // rate,-1), round(curr_h // rate,-1)
             down_img = resize(img, (new_h,new_w),  InterpolationMode.BICUBIC)
-            
+                    
         return img, down_img
 
     def __len__(self):

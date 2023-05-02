@@ -26,6 +26,7 @@ def data_split(img_list, split_num_list, shuffle_data, rand_num=0):
 ################# Tensor quantization and dequantization #################
 def quant_tensor(t, bits=8):
     tmin_scale_list = []
+    
     # quantize over the whole tensor, or along each dimenstion
     t_min, t_max = t.min(), t.max()
     scale = (t_max - t_min) / (2**bits-1)
@@ -37,7 +38,7 @@ def quant_tensor(t, bits=8):
             # tmin_scale_list.append([t_min, scale]) 
             tmin_scale_list.append([t_min.to(torch.float16), scale.to(torch.float16)]) 
     # import pdb; pdb.set_trace; from IPython import embed; embed() 
-     
+        
     quant_t_list, new_t_list, err_t_list = [], [], []
     for t_min, scale in tmin_scale_list:
         t_min, scale = t_min.expand_as(t), scale.expand_as(t)
@@ -46,7 +47,7 @@ def quant_tensor(t, bits=8):
         err_t = (t - new_t).abs().mean()
         quant_t_list.append(quant_t)
         new_t_list.append(new_t)
-        err_t_list.append(err_t)   
+        err_t_list.append(err_t)
 
     # choose the best quantization 
     best_err_t = min(err_t_list)

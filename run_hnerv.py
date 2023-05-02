@@ -636,7 +636,8 @@ def evaluate(model, full_dataloader, local_rank, args,
             # optimize(gif_file)
 
         #Compute Overall PSNR
-        overall_psnr = all_psnr(preds,gts)
+#         overall_psnr = all_psnr(preds,gts)
+        overall_psnr = 0 #compute post-hoc; gets GPU OOM on large images if compute during training
 
         if model_ind: #quantized model
             args.eval_orig_overall_PSNR = overall_psnr #log

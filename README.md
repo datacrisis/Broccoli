@@ -19,9 +19,9 @@ Broccoli is a neural-implicit video encoding framework designed to maximize comp
 </p>
 
 ### Results & Sample Weights
-Below are some sample of encoded (and reconstructed) output from Broccoli - footages taken from the ![UVG dataset](https://ultravideo.fi/#testsequences). 
+Below are some sample of encoded (and reconstructed) output from Broccoli - footages taken from the [UVG dataset](https://ultravideo.fi/#testsequences). 
 
-![Sample output - Beauty UVG](./assets/bosphorus.gif)
+![Sample output - Bosphorus UVG](./assets/bosphorus.gif)
 <p align="center">
 <b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
 </p>

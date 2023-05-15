@@ -10,13 +10,16 @@
 
  
 ## Introduction 
+> **Note**: For ECE 6123 – Image and Video Processing (Spring 2023) at NYU
+
 Broccoli is a neural-implicit video encoding framework designed to maximize compactness (e.g. maximize `PSNR`/`BPP` ratio). Unlike traditional encoder, it relies on an autoencoder like deep neural network to encode the video in an end-to-end manner; and unlike some other existing deep encoders, Broccoli (like its neural-implicit brethrens such as HNeRV) is not learning to encode, but to directly represented a given sequence (e.g. overfit) directly. For more info, check out the linked report or slide above.
 
-> **Note**: For ECE 6123 – Image and Video Processing (Spring 2023) at NYU
 ![Banner](./assets/broccoli_sample.png)
 <p align="center">
 <b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
 </p>
+
+<a href="https://drive.google.com/uc?export=view&id=1DQE2YgPxbntzMgOdohxNDRQPdCH6RWUn"><img src="https://drive.google.com/uc?export=view&id=1DQE2YgPxbntzMgOdohxNDRQPdCH6RWUn" style="width: 500px; max-width: 100%; height: auto" title="Click for the larger version." /></a>
 
 ### Results & Sample Weights
 Below is an illustration of the input / output at each stage of the pipeline with custom data.
@@ -72,9 +75,9 @@ brotli -q 11 -o /path/to/output.br /path/to/quant_vid.pth
 ## Acknowledgements & References
 The project is built on top of HNerV from Chen et. al. [here](https://github.com/haochen-rye/HNeRV).
 
-```@InProceedings{chen2022hnerv,
+```
+@InProceedings{chen2022hnerv,
       title={{HN}e{RV}: Neural Representations for Videos}, 
       author={Hao Chen and Matthew Gwilliam and Ser-Nam Lim and Abhinav Shrivastava},
       year={2022},
-}
 ```

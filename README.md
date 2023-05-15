@@ -19,10 +19,11 @@ Broccoli is a neural-implicit video encoding framework designed to maximize comp
 </p>
 
 ### Results & Sample Weights
-Below is an illustration of the input / output at each stage of the pipeline with custom data.
-![Sample output - Beauty UVG](https://drive.google.com/uc?export=view&id=1DQE2YgPxbntzMgOdohxNDRQPdCH6RWUn)
+Below are some sample of encoded (and reconstructed) output from Broccoli - footages taken from the ![UVG dataset](https://ultravideo.fi/#testsequences). 
+
+![Sample output - Beauty UVG](./assets/bosphorus.gif)
 <p align="center">
-<b>Sample data at each stage. From left to right - Monocular input sequence, SAM extracted mask, NeRF2Mesh reconstructed mesh and test-fit with cloth simulation in Blender</b>
+<b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
 </p>
 
 Pretrained weights for UVG dataset videos can be found [here](https://drive.google.com/file/d/1NYD-S6qXIFpOTooutAPXpD5sbo_QN2UR/)

@@ -10,6 +10,8 @@
 
  
 ## Introduction 
+Broccoli is a neural-implicit video encoding framework designed to maximize compactness (e.g. maximize `PSNR`/`BPP` ratio). Unlike traditional encoder, it relies on an autoencoder like deep neural network to encode the video in an end-to-end manner; and unlike some other existing deep encoders, Broccoli (like its neural-implicit brethrens such as HNeRV) is not learning to encode, but to directly represented a given sequence (e.g. overfit) directly. For more info, check out the linked report or slide above.
+
 > **Note**: For ECE 6123 – Image and Video Processing (Spring 2023) at NYU
 ![Banner](./assets/broccoli_sample.png)
 <p align="center">
@@ -23,7 +25,7 @@ Below is an illustration of the input / output at each stage of the pipeline wit
 <b>Sample data at each stage. From left to right - Monocular input sequence, SAM extracted mask, NeRF2Mesh reconstructed mesh and test-fit with cloth simulation in Blender</b>
 </p>
 
-Sample data used in illustration above and the corresponding trained implicit model and reconstructed mesh can be found [here](https://drive.google.com/file/d/1nKHaewiDw_M1wOnBDXXRA_i0nXSzp8LR/view?usp=share_link)
+Pretrained weights for UVG dataset videos can be found [here](https://drive.google.com/file/d/1NYD-S6qXIFpOTooutAPXpD5sbo_QN2UR/)
 
 
 ## Getting Started

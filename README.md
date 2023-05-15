@@ -23,7 +23,17 @@ Below are some sample of encoded (and reconstructed) output from Broccoli - foot
 
 ![Sample output - Bosphorus UVG](./assets/bosphorus.gif)
 <p align="center">
-<b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
+<b>Bosphorus</b> | <b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
+</p>
+
+![Sample output - City Alley UVG](./assets/cityalley.gif)
+<p align="center">
+<b>City Alley</b> | <b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
+</p>
+
+![Sample output - Beauty UVG](./assets/beauty.gif)
+<p align="center">
+<b>Beauty</b> | <b>Left: </b>Ground Truth <b>Right: </b>2x Super-Resolution Reconstructed Output
 </p>
 
 Pretrained weights for UVG dataset videos can be found [here](https://drive.google.com/file/d/1NYD-S6qXIFpOTooutAPXpD5sbo_QN2UR/)

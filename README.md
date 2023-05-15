@@ -1,102 +1,68 @@
-# HNeRV: A Hybrid Neural Representation for Videos  (Under Review)
-### [Project Page](https://haochen-rye.github.io/HNeRV) | [UVG Data](http://ultravideo.fi/#testsequences) 
+<br />
+<p align="center">
+
+<h1 align="center">🥦 <b>Broccoli</b> <br> Efficient Video Encoding with Neural Implicit Representation
+</h1>
+  <h4 align="center"><a href="https://github.com/datacrisis">Keifer Lee</a>, <a href="">Ankit Rajvanshi</a>, <a href="">Utkarsh Atri</a>, <a href="">Yueyu Hu </a>(Mentor) </h4>
+  
+  <h5 align="center"><a href="https://docs.google.com/presentation/d/17Vl2SLQFEUfY_zYlgTjfzdY43zZ397gmQey7Jv0UCr8/"> Slide </a> &emsp; <a href=""> Report </a></h5>
+</p>
 
 
-[Hao Chen](https://haochen-rye.github.io),
-Matthew Gwilliam,
-Ser-Nam Lim,
-[Abhinav Shrivastava](https://www.cs.umd.edu/~abhinav/)<br>
-This is the official implementation of the paper "HNeRV: A Hybrid Neural Representation for Videos".
+<!-- # Abstract
+![Pipeline of Leave Your Clothes Behind (LYCB)](./assets/pipeline.png)
+<p align="center">
+  <b>Pipeline of Leave Your Clothes Behind (LYCB)</b>
+</p>
 
-## TODO 
-- [ &check; ] Video inpainting
-- [ &check; ] Fast loading from video checkpoints
-- [ ] Upload results and checkpoints for UVG
+# Results & Sample Weights
+Below is an illustration of the input / output at each stage of the pipeline with custom data.
+![Sample output](https://github.com/IamShubhamGupto/LYCB/blob/main/assets/merged_animation.gif)
+<p align="center">
+<b>Sample data at each stage. From left to right - Monocular input sequence, SAM extracted mask, NeRF2Mesh reconstructed mesh and test-fit with cloth simulation in Blender</b>
+</p>
 
-## Method overview
-<!-- HNeRV architecture             |  Video Regression
-:-------------------------:|:-------------------------: -->
-![](https://i.imgur.com/SdRcEiY.jpg) 
+Sample data used in illustration above and the corresponding trained implicit model and reconstructed mesh can be found [here](https://drive.google.com/file/d/1nKHaewiDw_M1wOnBDXXRA_i0nXSzp8LR/view?usp=share_link)
+ -->
+ 
+## Introduction 
+> **Note**: For ECE 6123 – Image and Video Processing (Spring 2023) at NYU
 
- ![](https://i.imgur.com/CAppWSM.jpg)
+## Getting Started
 
-## Get started
-We run with Python 3.8, you can set up a conda environment with all dependencies like so:
-```
-pip install -r requirements.txt 
-```
+### Installation
+For LYCB, `NeRF2Mesh`'s dependencies and `Segment-Anything` are key pre-requisites. Optionally, if you would like to use your own data (without prepared camera parameters), `COLMAP` will be required as well.
 
-## High-Level structure
-The code is organized as follows:
-* [train_nerv_all.py](./train_nerv_all.py) includes a generic traiing routine.
-* [model_all.py](./model_all.py) contains the dataloader and neural network architecure 
-* [data/](./data) directory video/imae dataset, we provide bunny frames here
-* [checkpoints/](./checkpoints) we provide model weights, and quantized video checkpoints for bunny here
-* log files (tensorboard, txt, state_dict etc.) will be saved in output directory (specified by ```--outf```)
+```python
+#Installing key requirements
 
-## Reproducing experiments
+#NeRF2Mesh
+pip install -r requirements.txt
+pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch 
+pip install git+https://github.com/NVlabs/nvdiffrast/
+pip install git+https://github.com/facebookresearch/pytorch3d.git
 
-### Training HNeRV
-HNeRV of 1.5M is specified with ```'--modelsize 1.5'```, and we balance parameters with ```'-ks 0_1_5 --reduce 1.2' ```
-```
-python train_nerv_all.py  --outf 1120  --data_path data/bunny --vid bunny   \
-   --conv_type convnext pshuffel --act gelu --norm none  --crop_list 640_1280  \
-    --resize_list -1 --loss L2  --enc_strds 5 4 4 2 2 --enc_dim 64_16 \
-    --dec_strds 5 4 4 2 2 --ks 0_1_5 --reduce 1.2   \
-    --modelsize 1.5  -e 300 --eval_freq 30  --lower_width 12 -b 2 --lr 0.001
-```
-
-### NeRV baseline
-NeRV baseline is specified with ```'--embed pe_1.25_80 --fc_hw 8_16'```, with imbalanced parameters ```'--ks 0_3_3 --reduce 2' ```
-```
-python train_nerv_all.py  --outf 1120  --data_path data/bunny --vid bunny   \
-   --conv_type convnext pshuffel --act gelu --norm none  --crop_list 640_1280  \
-   --resize_list -1 --loss L2   --embed pe_1.25_80 --fc_hw 8_16 \
-    --dec_strds 5 4 2 2 --ks 0_3_3 --reduce 2   \
-    --modelsize 1.5  -e 300 --eval_freq 30  --lower_width 12 -b 2 --lr 0.001
+#SAM
+pip install git+https://github.com/facebookresearch/segment-anything.git
 ```
 
-### Evaluation & dump images and videos
-To evaluate pre-trained model, use ```'--eval_only --weight [CKT_PATH]'``` to evaluate and specify model path. \
-For model and embedding quantization, use ```'--quant_model_bit 8 --quant_embed_bit 6'```.\
-To dump images or videos, use  ```'--dump_images --dump_videos'```.
-```
-python train_nerv_all.py  --outf 1120  --data_path data/bunny --vid bunny   \
-   --conv_type convnext pshuffel --act gelu --norm none  --crop_list 640_1280  \
-    --resize_list -1 --loss L2  --enc_strds 5 4 4 2 2 --enc_dim 64_16 \
-    --dec_strds 5 4 4 2 2 --ks 0_1_5 --reduce 1.2  \
-    --modelsize 1.5  -e 300 --eval_freq 30  --lower_width 12 -b 2 --lr 0.001 \
-   --eval_only --weight checkpoints/hnerv-1.5m-e300.pth \
-   --quant_model_bit 8 --quant_embed_bit 6 \
-    --dump_images --dump_videos
+For COLMAP installation, check out https://colmap.github.io/install.html
+
+
+### Running LYCB
+1. Test test
+```bash
+#Example for video
+echo test
 ```
 
-### Video inpainting
-We can specified inpainting task with ```'--vid bunny_inpaint_50'``` where '50' is the mask size.
-```
-python train_nerv_all.py  --outf 1120  --data_path data/bunny --vid bunny_inpaint_50   \
-   --conv_type convnext pshuffel --act gelu --norm none  --crop_list 640_1280  \
-    --resize_list -1 --loss L2  --enc_strds 5 4 4 2 2 --enc_dim 64_16 \
-    --dec_strds 5 4 4 2 2 --ks 0_1_5 --reduce 1.2   \
-    --modelsize 1.5  -e 300 --eval_freq 30  --lower_width 12 -b 2 --lr 0.001
-```
 
-### Efficient video loading
-We can load video efficiently from a [tiny checkpoint](./checkpoints/quant_vid.pth).\
-Specify decoder and checkpoint by ```'--decoder [Decoder_path] --ckt [Video checkpoint]'```, output dir and frames by ```'--dump_dir [out_dir] --frames [frame_num]'```.
-```
-python efficient_nvloader.py --frames 16
-```
+## Acknowledgements & References
+The project is built on top of HNerV from Chen et. al. [here](https://github.com/haochen-rye/HNeRV).
 
-## Citation
-If you find our work useful in your research, please cite:
-```
-@InProceedings{chen2022hnerv,
+```@InProceedings{chen2022hnerv,
       title={{HN}e{RV}: Neural Representations for Videos}, 
       author={Hao Chen and Matthew Gwilliam and Ser-Nam Lim and Abhinav Shrivastava},
       year={2022},
 }
 ```
-
-## Contact
-If you have any questions, please feel free to email the authors.

@@ -7,3 +7,4 @@ compiled_out
 data/
 sbatch/
 batches
+*ipynb

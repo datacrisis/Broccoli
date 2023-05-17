@@ -5,7 +5,7 @@
 </h1>
   <h4 align="center"><a href="https://github.com/datacrisis">Keifer Lee</a>, <a href="">Ankit Rajvanshi</a>, <a href="">Utkarsh Atri</a>, <a href="">Yueyu Hu </a>(Mentor) </h4>
   
-  <h5 align="center"><a href="https://docs.google.com/presentation/d/17Vl2SLQFEUfY_zYlgTjfzdY43zZ397gmQey7Jv0UCr8/"> Slide </a> &emsp; <a href=""> Report </a></h5>
+  <h5 align="center"><a href="https://docs.google.com/presentation/d/17Vl2SLQFEUfY_zYlgTjfzdY43zZ397gmQey7Jv0UCr8/"> Slide </a> &emsp; <a href="https://drive.google.com/file/d/1R8QNJtAEL5yzmLKH5nhX60IczuwwJDaI/view?usp=sharing"> Report </a></h5>
 </p>
 
  

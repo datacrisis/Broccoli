@@ -62,8 +62,8 @@ python ../main.py --data_path path/to/images \
                   --outf output/path/ \
                   --crop_list 960_1920 \
                   --loss L2 \
-                  --enc_strds 5 4 4 2 2 \
-                  --dec_strds 5 4 4 2 2 \
+                  --enc_strds 5 4 4 3 2 \
+                  --dec_strds 5 4 4 3 2 \
                   --ks 0_1_5 \
                   --epochs 300 \
                   --eval_freq 2 \

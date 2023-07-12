@@ -1,0 +1,15 @@
+,bpp,path,res,nframes
+FlowerFocus,0.010382486979166666,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_FlowerFocus_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+ShakeNDry,0.02219419849537037,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_ShakeNDry_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,300
+SunBath,0.020806539351851852,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_SunBath_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,300
+RaceNight,0.011029846643518519,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_RaceNight_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+Jockey,0.011124160879629629,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_Jockey_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+RiverBank,0.010305483217592592,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_RiverBank_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+Beauty,0.010394712094907407,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_Beauty_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+CityAlley,0.010431098090277778,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_CityAlley_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+Bosphorus,0.010422034143518518,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_Bosphorus_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+YatchRide,0.010443844039351852,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_YatchRide_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+ReadySteadyGo,0.01047033420138889,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_ReadySteadyGo_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+FlowerKids,0.010497779224537037,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_FlowerKids_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+Twilight,0.011035076678240741,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_Twilight_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600
+HoneyBee,0.011036089409722222,/scratch/kl3866/IVP/HNeRV/batches/output/2x_8bit_gamut_brotli/2x_HoneyBee_QTM8_QTE6/compressed_quant_vid.pth.br,1920_960,600

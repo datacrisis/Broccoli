@@ -1,0 +1,42 @@
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/output/new_prune_test_3_2x/prune_test_beauty_8_MAXVAL128_2x/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e161_b1_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2__shuffle_datagelu1_1/ep99_ratio0.9_quant_vid.br /scratch/kl3866/IVP/HNeRV/output/new_prune_test_3_2x/prune_test_beauty_8_MAXVAL128_2x/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e161_b1_quant_M8_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2__shuffle_datagelu1_1/ep99_ratio0.9_quant_vid.pth
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_SunBath_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_SunBath_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_FlowerFocus_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_FlowerFocus_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_HoneyBee_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_HoneyBee_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_ShakeNDry_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_ShakeNDry_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_Beauty_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_Beauty_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_Jockey_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_Jockey_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_YatchRide_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_YatchRide_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_CityAlley_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_CityAlley_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_Bosphorus_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_Bosphorus_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_RaceNight_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_RaceNight_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_RiverBank_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_RiverBank_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_Twilight_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_Twilight_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_ReadySteadyGo_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_ReadySteadyGo_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth
+
+
+brotli -q 11 -o /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut_brotli/2x_FlowerKids_QTM24_QTE6/compressed_quant_vid.pth.br /scratch/kl3866/IVP/HNeRV/batches/output/2x_24bit_gamut/2x_FlowerKids_QTM24_QTE6/1_1_1__Dim64_16_FC9_16_KS0_1_5_RED1.2_low12_blk1_1_e600_b1_quant_M24_E6_lr0.001_cosine_0.1_1_0.1_L2_Size1.5_ENC_convnext_5,4,4,3,2_DEC_pshuffel_5,4,4,3,2_gelu1_1/quant_vid.pth

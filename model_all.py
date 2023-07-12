@@ -131,11 +131,11 @@ class HNeRV(nn.Module):
 
         # BUILD Encoder LAYERS
         if len(args.enc_strds):         #HNeRV
-            enc_dim1, enc_dim2 = [int(x) for x in args.enc_dim.split('_')]
-            c_in_list, c_out_list = [enc_dim1] * len(args.enc_strds), [enc_dim1] * len(args.enc_strds)
-            c_out_list[-1] = enc_dim2
+            enc_dim1, enc_dim2 = [int(x) for x in args.enc_dim.split('_')] # 64_16
+            c_in_list, c_out_list = [enc_dim1] * len(args.enc_strds), [enc_dim1] * len(args.enc_strds) # [64] * 5, [64] * 5
+            c_out_list[-1] = enc_dim2 #[64,64,64,64,64] -> [64,64,64,64,16]
             if args.conv_type[0] == 'convnext':
-                self.encoder = ConvNeXt(stage_blocks=enc_blks, strds=args.enc_strds, dims=c_out_list,
+                self.encoder = ConvNeXt(stage_blocks=enc_blks, strds=args.enc_strds, dims=c_out_list, #dims=c_out_list is key
                     drop_path_rate=0)
             else:
                 c_in_list[0] = 3
@@ -146,7 +146,7 @@ class HNeRV(nn.Module):
                 self.encoder = nn.Sequential(*encoder_layers)
             hnerv_hw = np.prod(args.enc_strds) // np.prod(args.dec_strds)
             self.fc_h, self.fc_w = hnerv_hw, hnerv_hw
-            ch_in = enc_dim2
+            ch_in = enc_dim2 #16
         else:
             ch_in = 2 * int(args.embed.split('_')[-1])
             self.pe_embed = PositionEncoding(args.embed)  
@@ -155,8 +155,8 @@ class HNeRV(nn.Module):
 
         # BUILD Decoder LAYERS  
         decoder_layers = []        
-        ngf = args.fc_dim
-        out_f = int(ngf * self.fc_h * self.fc_w)
+        ngf = args.fc_dim #65
+        out_f = int(ngf * self.fc_h * self.fc_w) #65 * 1 = 65
         decoder_layer1 = NeRVBlock(dec_block=False, conv_type='conv', ngf=ch_in, new_ngf=out_f, ks=0, strd=1, 
             bias=True, norm=args.norm, act=args.act)
         decoder_layers.append(decoder_layer1)

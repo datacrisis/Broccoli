@@ -32,6 +32,7 @@ def main():
         help='Valid_train/total_train/all data split, e.g., 18_19_20 means for every 20 samples, the first 19 samples is full train set, and the first 18 samples is chose currently')
     parser.add_argument('--crop_list', type=str, default='640_1280', help='video crop size',)
     parser.add_argument('--resize_list', type=str, default='-1', help='video resize size',)
+    parser.add_argument('--no_shuffle', action='store_true', default=False, help='Disable shuffling of dataloader')
 
     # NERV architecture parameters
     # Embedding and encoding parameters
@@ -93,6 +94,7 @@ def main():
     parser.add_argument('--overwrite', action='store_true', help='overwrite the output dir if already exists')
     parser.add_argument('--outf', default='unify', help='folder to output images and model checkpoints')
     parser.add_argument('--suffix', default='', help="suffix str for outf")
+    parser.add_argument('--hard_outf', action='store_true', help='Take outf given as is')  
 
 
     args = parser.parse_args()
@@ -100,6 +102,8 @@ def main():
     if args.debug:
         args.eval_freq = 1
         args.outf = 'output/debug'
+    elif args.hard_outf: 
+        args.outf = args.outf
     else:
         args.outf = os.path.join('output', args.outf)
 
@@ -159,8 +163,13 @@ def train(local_rank, args):
     # setup dataloader    
     full_dataset = VideoDataSet(args)
     sampler = torch.utils.data.distributed.DistributedSampler(full_dataset) if args.distributed else None
-    full_dataloader = torch.utils.data.DataLoader(full_dataset, batch_size=args.batchSize, shuffle=(sampler is None),
-            num_workers=args.workers, pin_memory=True, sampler=sampler, drop_last=False, worker_init_fn=worker_init_fn)
+    
+    if args.no_shuffle:
+        full_dataloader = torch.utils.data.DataLoader(full_dataset, batch_size=args.batchSize, shuffle=False,
+                num_workers=args.workers, pin_memory=True, sampler=sampler, drop_last=False, worker_init_fn=worker_init_fn)
+    else:
+        full_dataloader = torch.utils.data.DataLoader(full_dataset, batch_size=args.batchSize, shuffle=(sampler is None),
+        num_workers=args.workers, pin_memory=True, sampler=sampler, drop_last=False, worker_init_fn=worker_init_fn)
     args.final_size = full_dataset.final_size
     args.full_data_length = len(full_dataset)
     split_num_list = [int(x) for x in args.data_split.split('_')]
@@ -463,15 +472,15 @@ def train(local_rank, args):
 # Writing final results in CSV file
 def Dump2CSV(args, best_results_list, results_list, psnr_list, filename='results.csv'):
     result_dict = {'Vid':args.vid, 'CurEpoch':args.cur_epoch, 'Train Time':args.train_time, 
-        "Compression Method": args.compression_method, "Compression Encoding Time": args.compression_encoding_time,
-        "Compression Decoding Time": args.compression_decoding_time,
-        'FPS (Quantized, Full Pass)':args.fps_qt_fu, 'FPS (Quantized, Forward Pass)':args.fps_qt_fp,
-        'FPS (Full Model, Full Pass)':args.fps_raw_fu, 'FPS (Full Model, Forward Pass)':args.fps_raw_fp,
-        'Encoding / Training Time Total (Full Pass)':args.train_encode_fu_time_total, 
-        'Encoding / Training Time Total (Forward Pass)':args.train_encode_fp_time_total,
-        'Encoding / Training Time per Epoch (Full Pass)':args.train_encode_fu_time_pepoch, 
-        'Encoding / Training Time per Epoch (Forward Pass)':args.train_encode_fp_time_pepoch,
-        'FPS (Full Model, Full Pass)':args.fps_raw_fu, 'FPS (Full Model, Forward Pass)':args.fps_raw_fp,
+#         "Compression Method": args.compression_method, "Compression Encoding Time": args.compression_encoding_time,
+#         "Compression Decoding Time": args.compression_decoding_time,
+#         'FPS (Quantized, Full Pass)':args.fps_qt_fu, 'FPS (Quantized, Forward Pass)':args.fps_qt_fp,
+#         'FPS (Full Model, Full Pass)':args.fps_raw_fu, 'FPS (Full Model, Forward Pass)':args.fps_raw_fp,
+#         'Encoding / Training Time Total (Full Pass)':args.train_encode_fu_time_total, 
+#         'Encoding / Training Time Total (Forward Pass)':args.train_encode_fp_time_total,
+#         'Encoding / Training Time per Epoch (Full Pass)':args.train_encode_fu_time_pepoch, 
+#         'Encoding / Training Time per Epoch (Forward Pass)':args.train_encode_fp_time_pepoch,
+#         'FPS (Full Model, Full Pass)':args.fps_raw_fu, 'FPS (Full Model, Forward Pass)':args.fps_raw_fp,
         'Split':args.data_split, 'Embed':args.embed, 'Crop': args.crop_list,
         'Resize':args.resize_list, 'Lr_type':args.lr_type, 'LR (E-3)': args.lr*1e3, 'Batch':args.batchSize,
         'Size (M)': f'{round(args.encoder_param, 2)}_{round(args.decoder_param, 2)}_{round(args.total_param, 2)}', 
@@ -718,8 +727,12 @@ def evaluate(model, full_dataloader, local_rank, args,
             args.full_bits_per_param = total_bits / len(quant_v_list)
 
             # bits per pixel
-            args.total_bpp = total_bits / args.final_size / args.full_data_length
+            if args.super:
+                args.total_bpp = total_bits / (args.final_size * (args.super_rate**2)) / args.full_data_length
+            else:
+                args.total_bpp = total_bits / (args.final_size) / args.full_data_length
             print(f'After quantization and encoding: \n bits per parameter: {round(args.full_bits_per_param, 2)}, bits per pixel: {round(args.total_bpp, 4)}')
+            
     # import pdb; pdb.set_trace; from IPython import embed; embed()     
 
     return results_list, (h,w)

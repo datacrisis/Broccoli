@@ -1,0 +1,15 @@
+,bpp,path,res,nframes
+Twilight,0.001223538773148148,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_Twilight_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+SunBath,0.0012064525462962964,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_SunBath_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,300
+Bosphorus,0.0005461950231481482,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_Bosphorus_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+RaceNight,0.0005682436342592592,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_RaceNight_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+FlowerKids,0.0008457826967592592,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_FlowerKids_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+Beauty,0.000771433738425926,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_Beauty_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+CityAlley,0.0009170138888888889,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_CityAlley_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+ReadySteadyGo,0.0005877748842592592,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_ReadySteadyGo_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+FlowerFocus,0.0006926142939814814,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_FlowerFocus_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+Jockey,0.00046422164351851854,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_Jockey_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+YatchRide,0.0006144820601851851,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_YatchRide_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+HoneyBee,0.0007627459490740741,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_HoneyBee_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600
+ShakeNDry,0.0014934172453703704,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_ShakeNDry_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,300
+RiverBank,0.0006311631944444444,/scratch/kl3866/IVP/HNeRV/batches/final/2x_1080_HNeRV_gamut/brotli/2x_RiverBank_QTM32_QTE6/compressed_quant_vid.pth.br,1920_960,600

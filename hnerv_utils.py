@@ -53,12 +53,45 @@ def quant_tensor(t, bits=8):
     best_err_t = min(err_t_list)
     best_quant_idx = err_t_list.index(best_err_t)
     best_new_t = new_t_list[best_quant_idx]
-    best_quant_t = quant_t_list[best_quant_idx].to(torch.uint8)
+    best_quant_t = quant_t_list[best_quant_idx].to(torch.uint8) #removed to.(uint8) casting to allow value range as defined by bits 
     best_tmin = tmin_scale_list[best_quant_idx][0]
     best_scale = tmin_scale_list[best_quant_idx][1]
     quant_t = {'quant': best_quant_t, 'min': best_tmin, 'scale': best_scale}
 
-    return quant_t, best_new_t             
+    return quant_t, best_new_t           
+
+# def quant_tensor(t, bits=8):
+    
+#     n_decimal_pos = 2
+#     MAX_VAL = 128 #max value; also dictate num of bins
+    
+#     t_min = t.min()
+#     t += abs(t_min) #push to positive
+#     rounded = torch.round(t * 10**n_decimal_pos) / (10**n_decimal_pos)
+    
+#     print("POST ROUNDED [t]: {} | {}".format(t.max(),t.min()))
+#     print("POST ROUNDED [rounded]: {} | {}".format(rounded.max(),rounded.min()))
+    
+#     #If all 0 or max is 0; return all 0 directly
+#     if rounded.max() == 0:
+        
+#         quant_t = {'quant': rounded, 'min': torch.tensor([t_min]), 'scale': torch.tensor([MAX_VAL])}
+        
+#         return quant_t, rounded
+    
+#     q_max = rounded.max()
+#     rounded = (rounded / q_max) * MAX_VAL #scale to 0 to MAX_VAL
+#     rounded = torch.round(rounded) #no need call explicitly uint8 as it'll cause training error; just round
+    
+#     assert rounded.max() <= MAX_VAL and rounded.min() >= 0, Exception("Error, tensor OOB! Max: {} | Min: {}".format(rounded.max(),rounded.min()))
+    
+#     #Revert for eval
+#     dequant = (rounded / MAX_VAL) * q_max
+#     dequant -= abs(t_min)
+    
+#     quant_t = {'quant': rounded, 'min': torch.tensor([t_min]), 'max': torch.tensor([q_max]), 'scale': torch.tensor([MAX_VAL])}
+
+#     return quant_t, dequant             
 
 
 def dequant_tensor(quant_t):
